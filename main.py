@@ -11,7 +11,7 @@ def random_name(n: int):
 
 for _ in range(10):
     with open(codes_file, "r") as read_file:
-        past_codes = [code.replace("\n", "") for code in read_file.readlines()]
+        past_codes: list[str] = [code.replace("\n", "") for code in read_file.readlines()]
 
     code = random_name(10)
 
