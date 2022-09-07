@@ -4,7 +4,7 @@ import string
 codes_file = "codes.txt"
 
 
-def random_name(n: int):
+def random_name(n: int) -> str:
     letters = string.ascii_uppercase + string.digits + '.' + '_' + '-'
     return ''.join(random.choices(letters, k=n))
 
