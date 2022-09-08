@@ -1,11 +1,11 @@
-import pandas
 import datetime
-import pandas as pd
 import random
 import string
 
-coupen_file = "coupen_code.csv"
-past_codes_file = "past_codes.csv"
+import pandas as pd
+
+coupen_file = "csv_files/coupen_code.csv"
+past_codes_file = "csv_files/past_codes.csv"
 
 coupen_code_len = 10
 letters = string.ascii_uppercase + string.digits + '.' + '_' + '-'
