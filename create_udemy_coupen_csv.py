@@ -16,7 +16,7 @@ effective_letters = string.ascii_uppercase + string.digits + '.' + '_' + '-'
 
 def create_random_code() -> str:
     with open(past_codes_file, "r") as read_file:
-        past_codes_list: list[str] = [past_code.replace("\n", "") for past_code in read_file.readlines()]
+        past_codes_list: list[str] = read_file.readlines()
 
     randdom_letters: str = ""
     while randdom_letters == "" or randdom_letters in past_codes_list:
