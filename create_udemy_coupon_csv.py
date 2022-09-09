@@ -20,12 +20,12 @@ if __name__ == "__main__":
                 cells = line.split(",")
 
                 course_id: str = cells[0]
-                current_coupon_code: str = cells[2]
-                new_issue_times: int = int(re.search(r"\d{4}$", current_coupon_code).group()) + issue_times
+                origin_coupon_code: str = cells[2]
+                new_issue_times: int = int(re.search(r"\d{4}$", origin_coupon_code).group()) + issue_times
                 new_coupon_code: str = f"{course_id}-{new_issue_times:04}"
 
-                current_issue_date: dt = dt.datetime.strptime(cells[3], "%Y-%m-%d")
-                new_issue_date: dt = current_issue_date + dt.timedelta(days=coupen_lifespan * issue_times)
+                origin_issue_date: dt = dt.datetime.strptime(cells[3], "%Y-%m-%d")
+                new_issue_date: dt = origin_issue_date + dt.timedelta(days=coupen_lifespan * issue_times)
 
                 new_file.write(f"{course_id},"
                                f"{cells[1]},"
