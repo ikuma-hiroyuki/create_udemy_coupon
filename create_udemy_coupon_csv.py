@@ -17,7 +17,8 @@ if __name__ == "__main__":
         for course in coupon_list.values:
             issuing_date: datetime = datetime.datetime.strptime(course[3], "%Y-%m-%d") \
                                      + datetime.timedelta(days=coupen_lifespan * issue_times)
-            new_issue_times: int = int(re.search(r"\d{4}$", course[2]).group()) + issue_times
+            past_code: str = course[2]
+            new_issue_times: int = int(re.search(r"\d{4}$", past_code).group()) + issue_times
             course_id: str = course[0]
             new_code: str = f"{course_id}-{new_issue_times:04}"
 
