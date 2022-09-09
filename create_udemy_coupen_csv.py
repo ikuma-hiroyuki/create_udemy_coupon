@@ -10,7 +10,7 @@ coupen_file = "coupen_code.csv"
 past_codes_file = "csv_files/past_codes.csv"
 
 coupen_code_len = 10
-coupen_lifetime = 30
+coupen_lifespan = 30
 effective_letters = string.ascii_uppercase + string.digits + '.' + '_' + '-'
 
 
@@ -31,7 +31,7 @@ if __name__ == "main":
         new_file.write(",".join(coupon_list.columns.values) + "\n")
         for course in coupon_list.values:
             issuing_date = datetime.datetime.strptime(course[3], "%Y-%m-%d") \
-                           + datetime.timedelta(days=coupen_lifetime)
+                           + datetime.timedelta(days=coupen_lifespan)
             new_code = create_random_code()
 
             new_file.write(f"{course[0]},"
