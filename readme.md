@@ -16,3 +16,6 @@
 2. coupon_code = course_id + 発行回数(4桁ゼロ埋め)
 3. start_date = 2022-09-07 + 30 * 発行回数
 4. coupon_code.csv 格納ディレクトリをエクスプローラーで開く
+
+# Udemyクーポンコード一括作成について
+https://www.udemy.com/instructor/multiple-coupons-creation/
