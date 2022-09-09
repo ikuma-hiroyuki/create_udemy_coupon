@@ -34,4 +34,4 @@ if __name__ == "__main__":
                                f"{cells[4]},"
                                f"{cells[5]}")
 
-        open_current_dir.open()
+        open_current_dir.open_dir()
