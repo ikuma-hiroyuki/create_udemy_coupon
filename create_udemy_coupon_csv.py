@@ -1,5 +1,4 @@
 import datetime as dt
-import re
 
 import coupon_pathlib as cp
 
@@ -10,18 +9,14 @@ if __name__ == "__main__":
     with open(cp.origin_coupen_file, "r") as origin_file:
         header: str = origin_file.readline()
         origin_file.__next__()
-        coupon_lines = origin_file.readlines()
+        coupon_lines: list[str] = origin_file.readlines()
 
     with open(cp.new_coupon_file, "w") as new_file:
         new_file.write(header)
         for line in coupon_lines:
             cells = line.split(",")
-
             course_id: str = cells[0]
-            origin_coupon_code: str = cells[2]
-            new_issue_times: int = int(re.search(r"\d{4}$", origin_coupon_code).group()) + issue_times
-            new_coupon_code: str = f"{course_id}-{new_issue_times:04}"
-
+            new_coupon_code: str = f"{course_id}-{issue_times:04}"
             origin_issue_date: dt = dt.datetime.strptime(cells[3], "%Y-%m-%d")
             new_issue_date: dt = origin_issue_date + dt.timedelta(days=coupen_lifespan * issue_times)
 
