@@ -1,22 +1,18 @@
-from pathlib import Path
 import datetime as dt
 import re
 
-import open_current_dir
+import coupon_pathlib as cp
 
-base_path = Path(__file__).absolute().parent
-origin_coupen_file = base_path / "csv_files/udemy_coupon_code.csv"
-coupen_file = base_path / "coupon_code.csv"
 coupen_lifespan = 30
 
 if __name__ == "__main__":
     issue_times: int = int(input("Please enter the number of issues.\n"))
-    with open(origin_coupen_file, "r") as origin_file:
+    with open(cp.origin_coupen_file, "r") as origin_file:
         header: str = origin_file.readline()
         origin_file.__next__()
         coupon_lines = origin_file.readlines()
 
-        with open(coupen_file, "w") as new_file:
+        with open(cp.new_coupon_file, "w") as new_file:
             new_file.write(header)
             for line in coupon_lines:
                 cells = line.split(",")
@@ -36,4 +32,4 @@ if __name__ == "__main__":
                                f"{cells[4]},"
                                f"{cells[5]}")
 
-        open_current_dir.open_dir()
+        cp.open_new_coupon_dir()
