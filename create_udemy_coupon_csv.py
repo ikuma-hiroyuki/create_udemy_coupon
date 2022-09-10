@@ -12,24 +12,24 @@ if __name__ == "__main__":
         origin_file.__next__()
         coupon_lines = origin_file.readlines()
 
-        with open(cp.new_coupon_file, "w") as new_file:
-            new_file.write(header)
-            for line in coupon_lines:
-                cells = line.split(",")
+    with open(cp.new_coupon_file, "w") as new_file:
+        new_file.write(header)
+        for line in coupon_lines:
+            cells = line.split(",")
 
-                course_id: str = cells[0]
-                origin_coupon_code: str = cells[2]
-                new_issue_times: int = int(re.search(r"\d{4}$", origin_coupon_code).group()) + issue_times
-                new_coupon_code: str = f"{course_id}-{new_issue_times:04}"
+            course_id: str = cells[0]
+            origin_coupon_code: str = cells[2]
+            new_issue_times: int = int(re.search(r"\d{4}$", origin_coupon_code).group()) + issue_times
+            new_coupon_code: str = f"{course_id}-{new_issue_times:04}"
 
-                origin_issue_date: dt = dt.datetime.strptime(cells[3], "%Y-%m-%d")
-                new_issue_date: dt = origin_issue_date + dt.timedelta(days=coupen_lifespan * issue_times)
+            origin_issue_date: dt = dt.datetime.strptime(cells[3], "%Y-%m-%d")
+            new_issue_date: dt = origin_issue_date + dt.timedelta(days=coupen_lifespan * issue_times)
 
-                new_file.write(f"{course_id},"
-                               f"{cells[1]},"
-                               f"{new_coupon_code},"
-                               f"{new_issue_date},"
-                               f"{cells[4]},"
-                               f"{cells[5]}")
+            new_file.write(f"{course_id},"
+                           f"{cells[1]},"
+                           f"{new_coupon_code},"
+                           f"{new_issue_date},"
+                           f"{cells[4]},"
+                           f"{cells[5]}")
 
-        cp.open_new_coupon_dir()
+    cp.open_new_coupon_dir()
