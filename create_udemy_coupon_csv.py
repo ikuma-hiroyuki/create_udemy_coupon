@@ -1,10 +1,12 @@
+from pathlib import Path
 import datetime as dt
 import re
 
 import open_current_dir
 
-origin_coupen_file = "csv_files/udemy_coupon_code.csv"
-coupen_file = "coupon_code.csv"
+base_path = Path(__file__).absolute().parent
+origin_coupen_file = base_path / "csv_files/udemy_coupon_code.csv"
+coupen_file = base_path / "coupon_code.csv"
 coupen_lifespan = 30
 
 if __name__ == "__main__":
