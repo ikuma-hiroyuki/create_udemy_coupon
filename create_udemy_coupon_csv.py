@@ -2,7 +2,7 @@ import datetime as dt
 
 import coupon_pathlib as cp
 
-coupen_lifespan = 30
+COUPEN_LIFESPAN = 30
 
 if __name__ == "__main__":
     issue_times: int = int(input("Please enter the number of issues.\n"))
@@ -18,7 +18,7 @@ if __name__ == "__main__":
             course_id: str = cells[0]
             new_coupon_code: str = f"{course_id}-{issue_times:04}"
             origin_issue_date: dt = dt.datetime.strptime(cells[3], "%Y-%m-%d")
-            new_issue_date: dt = origin_issue_date + dt.timedelta(days=coupen_lifespan * issue_times)
+            new_issue_date: dt = origin_issue_date + dt.timedelta(days=COUPEN_LIFESPAN * issue_times)
 
             new_file.write(f"{course_id},"
                            f"{cells[1]},"
