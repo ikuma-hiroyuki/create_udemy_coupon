@@ -27,10 +27,10 @@ if __name__ == "__main__":
             new_coupon_code: str = f"{course_id}-{new_issue_times:04}"
 
             new_file.write(f"{course_id},"
-                           f"{cells[1]},"
+                           f"{cells[1]},"  # coupon_type
                            f"{new_coupon_code},"
                            f"{new_issue_date},"
-                           f"{cells[4]},"
-                           f"{cells[5]}")
+                           f"{cells[4]},"  # start_time
+                           f"{cells[5]}")  # custom_price
 
     cp.open_new_coupon_dir()
