@@ -17,6 +17,7 @@ if __name__ == "__main__":
         origin_coupon_lines: list[str] = origin_file.readlines()
         origin_issue_date: dt = get_issue_date(origin_coupon_lines[0])
         new_issue_times: int = (dt.datetime.today() - origin_issue_date).days // COUPEN_LIFESPAN + 1
+        new_issue_date: dt = origin_issue_date + dt.timedelta(days=COUPEN_LIFESPAN * new_issue_times)
 
     with open(cp.new_coupon_file, "w") as new_file:
         new_file.write(header)
@@ -24,7 +25,6 @@ if __name__ == "__main__":
             cells = line_string.split(",")
             course_id: str = cells[0]
             new_coupon_code: str = f"{course_id}-{new_issue_times:04}"
-            new_issue_date: dt = origin_issue_date + dt.timedelta(days=COUPEN_LIFESPAN * new_issue_times)
 
             new_file.write(f"{course_id},"
                            f"{cells[1]},"
