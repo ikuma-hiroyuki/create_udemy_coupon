@@ -4,21 +4,27 @@ import coupon_pathlib as cp
 
 COUPEN_LIFESPAN = 30
 
+
+def get_issue_date(csv_line: str) -> dt:
+    line_cells = csv_line.split(",")
+    return dt.datetime.strptime(line_cells[3], "%Y-%m-%d")
+
+
 if __name__ == "__main__":
-    issue_times: int = int(input("Please enter the number of issues.\n"))
     with open(cp.origin_coupen_file, "r") as origin_file:
         header: str = origin_file.readline()
         origin_file.__next__()
-        coupon_lines: list[str] = origin_file.readlines()
+        origin_coupon_lines: list[str] = origin_file.readlines()
+        origin_issue_date: dt = get_issue_date(origin_coupon_lines[0])
+        new_issue_times: int = (dt.datetime.today() - origin_issue_date).days // COUPEN_LIFESPAN + 1
 
     with open(cp.new_coupon_file, "w") as new_file:
         new_file.write(header)
-        for line in coupon_lines:
-            cells = line.split(",")
+        for line_string in origin_coupon_lines:
+            cells = line_string.split(",")
             course_id: str = cells[0]
-            new_coupon_code: str = f"{course_id}-{issue_times:04}"
-            origin_issue_date: dt = dt.datetime.strptime(cells[3], "%Y-%m-%d")
-            new_issue_date: dt = origin_issue_date + dt.timedelta(days=COUPEN_LIFESPAN * issue_times)
+            new_coupon_code: str = f"{course_id}-{new_issue_times:04}"
+            new_issue_date: dt = origin_issue_date + dt.timedelta(days=COUPEN_LIFESPAN * new_issue_times)
 
             new_file.write(f"{course_id},"
                            f"{cells[1]},"
