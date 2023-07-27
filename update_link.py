@@ -1,43 +1,68 @@
-import json
 import os
 
 import requests
 from dotenv import load_dotenv
 
-load_dotenv()
-
-HEADERS = {
-    'Authorization': f'Bearer {os.getenv("BITLY_TOKEN")}',
-    'Content-Type': 'application/json',
-}
+import coupon_pathlib as cp
 
 
-def print_links():
-    api_url = 'https://api-ssl.bitly.com/v4/groups/'
-    response = requests.get(f'{api_url}{os.getenv("GROUP_GUID")}/bitlinks', headers=HEADERS)
-    print(json.dumps(response.json(), indent=4))
-
-
-def update_long_url(bit_id, new_url):
+def get_udemy_links():
     """
-    リンク先のURLを更新する
+    rebrandly に登録してある Udemy のリンクを取得する。
 
-    URL更新は Starterプラン以上で可能
-    :param bit_id: bit.lyのID
-    :param new_url: 新しいURL
-    :return:
+    :return: links = {link_id: {"course_id": course_id, "slashtag": slashtag}}
+
+    https://developers.rebrandly.com/docs/list-links
     """
-    api_url = 'https://api-ssl.bitly.com/v4/bitlinks/'
-    data = {
-        'long_url': new_url,
-        'title': 'New Title2'
-    }
-    response = requests.patch(f'{api_url}{bit_id}', headers=HEADERS,
-                              data=json.dumps(data))
-    print(json.dumps(response.json(), indent=4))
+
+    api_url = 'https://api.rebrandly.com/v1/links'
+    response = requests.get(api_url, headers=headers)
+
+    links = {}
+    for link in response.json():
+        if 'udemy.com' in link['destination']:
+            course_id = link['destination'].split('=')[-1].split('-')[0]
+            course_link = link['destination'].split('?')[0]
+            links[link['id']] = {
+                "course_id": course_id,
+                "slashtag": link['slashtag'],
+                "course_link": course_link,
+            }
+    return links
+
+
+def update_link(link_id, destination):
+    """
+    rebrandly のUdemyクーポンのリンクを更新する。
+
+    :param link_id: rebrandly のリンクID
+    :param destination: 新しく発行したUdemyのクーポンリンク
+
+    https://developers.rebrandly.com/docs/update-a-link
+    """
+
+    api_url = f'https://api.rebrandly.com/v1/links/{link_id}'
+    payload = {"destination": destination, }
+    response = requests.post(api_url, json=payload, headers=headers)
+
+    if response.status_code == requests.codes.ok:
+        print(f"{link_id} updated successfully.")
+    else:
+        print(f"Error updating {link_id}.")
+        print(response.text)
 
 
 if __name__ == '__main__':
-    bitly_id = 'bit.ly/3OI6SC1'  # テスト用
-    new_long_url = 'https://www.udemy.com/course/vba4-ux1/?referralCode=3A9D44378B6F82D2F3EF'  # テスト用
-    update_long_url(bitly_id, new_long_url)
+    load_dotenv()
+    api_key = os.getenv('REBRANDLY_API')
+    headers = {
+        "apikey": api_key,
+        'Content-Type': 'application/json'
+    }
+    new_coupons: dict = cp.get_coupon_dict()
+    udemy_links: dict = get_udemy_links()
+
+    for rebrandly_link_id, udemy_course_id in udemy_links.items():
+        new_coupon = new_coupons[udemy_course_id['course_id']]
+        new_destination = f"{udemy_links[rebrandly_link_id]['course_link']}?couponCode={new_coupon}"
+        update_link(rebrandly_link_id, new_destination)
