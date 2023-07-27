@@ -8,12 +8,11 @@ ORIGIN_ISSUE_DATE = dt.datetime(2022, 9, 7)  # 一番最初にクーポンを発
 
 with cp.courses_file.open("r", encoding="utf-8") as f:
     reader: csv.DictReader = csv.DictReader(f)
+    next_issue_times = (dt.datetime.today() - ORIGIN_ISSUE_DATE).days // COUPON_LIFESPAN + 1
+    start_date = (ORIGIN_ISSUE_DATE + dt.timedelta(days=COUPON_LIFESPAN * next_issue_times)).strftime("%Y-%m-%d")
 
     new_coupon_list = []
     for course in reader:
-        next_issue_times = (dt.datetime.today() - ORIGIN_ISSUE_DATE).days // COUPON_LIFESPAN + 1
-        start_date = (ORIGIN_ISSUE_DATE + dt.timedelta(days=COUPON_LIFESPAN * next_issue_times)).strftime("%Y-%m-%d")
-
         new_coupon_list.append(
             {
                 "course_id": course["course_id"],
