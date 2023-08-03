@@ -7,10 +7,10 @@ import pytz
 
 def convert_jst_to_pst(jst_time: dt.datetime) -> tuple[str, str]:
     """
-    Converts a given datetime object from JST (Japan Standard Time) to PST (Pacific Standard Time).
+    指定された日時を JST (日本標準時) から PST (太平洋標準時) に変換する
 
-    :param jst_time: A datetime object representing the time in JST.
-    :return: A tuple containing the converted date in PST (YYYY-MM-DD) and the converted time in PST (HH:MM).
+    :param jst_time: JST の時刻を表す datetime オブジェクト
+    :return: PST (YYYY-MM-DD) に変換された日付と PST (HH:MM) に変換された時刻のタプル
     """
 
     pst = pytz.timezone('America/Los_Angeles')
@@ -32,20 +32,16 @@ def create_increment_code(course_id: str) -> str:
     return f"{course_id}-{next_issue_times:04}"
 
 
-def create_unique_id():
+def create_unique_id(course_id: str):
     """
-    20文字のユニークなIDを作成する
+    ユニークなIDを作成する
 
-    udemyのクーポン要件は6~20文字以内
+    Udemyのクーポン要件は6~20文字以内。コースIDは7文字。クーポンはコースID + -(ハイフン) + IDの形式で作成する。
+    コースIDを含めるのはリダイレクトリンクURLがコースIDを含んでいるため。
     :return: unique_code
     """
 
     uuid_value = uuid.uuid4()
     hash_value = hashlib.sha256(uuid_value.bytes).hexdigest()
-    unique_code = hash_value[:20]
-    return unique_code
-
-
-if __name__ == '__main__':
-    t = convert_jst_to_pst(dt.datetime.now())
-    print(t)
+    unique_code = hash_value[:12]
+    return f"{course_id}-{unique_code}"[:20]

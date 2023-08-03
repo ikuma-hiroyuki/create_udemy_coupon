@@ -34,10 +34,7 @@ def create_udemy_coupon(coupon_type: str, start_date: str, start_time: str):
 
         new_coupon_list = []
         for course in reader:
-            if is_custom_price:
-                coupon_code = coupon_func(course["course_id"])
-            else:
-                coupon_code = coupon_func()
+            coupon_code = coupon_func(course["course_id"])
 
             new_coupon_list.append(
                 {
@@ -55,8 +52,6 @@ def create_udemy_coupon(coupon_type: str, start_date: str, start_time: str):
         writer = csv.DictWriter(f2, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(new_coupon_list)
-
-    cp.open_new_coupon_dir()
 
 
 jp_start_date, jp_start_time = convert_jst_to_pst(datetime.datetime.now())
