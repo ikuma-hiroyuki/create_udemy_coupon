@@ -1,3 +1,4 @@
+import argparse
 import os
 
 import requests
@@ -70,3 +71,18 @@ def update_redirect_links(target_title):
         else:
             print(f"Error updating {rebrandly_link_id}.")
             print(response.text)
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser("リダイレクトリンク先のURLを更新する。位置引数として best か custom を指定する。")
+    parser.add_argument('price_type', type=str, help='best or custom')
+
+    args = parser.parse_args()
+
+    target_title = ""
+    if args.price_type.lower() == "best":
+        target_title = "UdemyBestPrice"
+    elif args.price_type.lower() == "custom":
+        target_title = "UdemyCustomPrice"
+
+    update_redirect_links(target_title)
