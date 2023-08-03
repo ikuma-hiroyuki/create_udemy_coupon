@@ -62,15 +62,11 @@ def update_redirect_links(target_title):
         new_destination = f"{udemy_links[rebrandly_link_id]['course_link']}?couponCode={new_coupon}"
 
         api_url = f'https://api.rebrandly.com/v1/links/{rebrandly_link_id}'
-        payload = {"destination": new_destination, }
+        payload = {"destination": new_destination, "title": target_title}
         response = requests.post(api_url, json=payload, headers=headers)
 
         if response.status_code == requests.codes.ok:
-            print(f"{rebrandly_link_id} updated successfully.")
+            print(f"{udemy_links[rebrandly_link_id]['slashtag']} updated successfully.")
         else:
             print(f"Error updating {rebrandly_link_id}.")
             print(response.text)
-
-
-if __name__ == '__main__':
-    update_redirect_links("UdemyMonth")
