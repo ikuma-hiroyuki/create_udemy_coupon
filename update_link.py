@@ -3,7 +3,7 @@ import os
 import requests
 from dotenv import load_dotenv
 
-import coupon_pathlib as cp
+import utils.coupon_pathlib as cp
 
 
 def get_udemy_links():
