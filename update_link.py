@@ -5,64 +5,72 @@ from dotenv import load_dotenv
 
 import utils.coupon_pathlib as cp
 
+load_dotenv()
+api_key = os.getenv('REBRANDLY_API')
+headers = {
+    "apikey": api_key,
+    'Content-Type': 'application/json'
+}
 
-def get_udemy_links():
+
+def get_redirect_links() -> list:
     """
-    rebrandly に登録してある Udemy のリンクを取得する。
+    rebrandly に登録してあるリダイレクトリンクを取得する。
+    :return: リダイレクトリンク一覧
+    """
+    api_url = 'https://api.rebrandly.com/v1/links'
+    response = requests.get(api_url, headers=headers)
+    return response.json()
 
-    :return: links = {link_id: {"course_id": course_id, "slashtag": slashtag}}
+
+def get_udemy_links(target_title) -> dict:
+    """
+    Udemyのクーポン一括作成機能用のリダイレクトリンクを整形して返す。
+
+    :return: Udemyのクーポン一括作成機能用のリダイレクトリンク辞書
 
     https://developers.rebrandly.com/docs/list-links
     """
 
-    api_url = 'https://api.rebrandly.com/v1/links'
-    response = requests.get(api_url, headers=headers)
+    redirects = get_redirect_links()
 
-    links = {}
-    for link in response.json():
-        if 'udemy.com' in link['destination']:
-            course_id = link['destination'].split('=')[-1].split('-')[0]
-            course_link = link['destination'].split('?')[0]
-            links[link['id']] = {
-                "course_id": course_id,
-                "slashtag": link['slashtag'],
-                "course_link": course_link,
-            }
+    links = {
+        link['id']: {
+            "course_id": link['destination'].split('=')[-1].split('-')[0],
+            "slashtag": link['slashtag'],
+            "course_link": link['destination'].split('?')[0],
+            "title": link['title'],
+        }
+        for link in redirects if target_title == link['title']
+    }
+
     return links
 
 
-def update_link(link_id, destination):
+def update_redirect_links(target_title):
     """
     rebrandly のUdemyクーポンのリンクを更新する。
-
-    :param link_id: rebrandly のリンクID
-    :param destination: 新しく発行したUdemyのクーポンリンク
 
     https://developers.rebrandly.com/docs/update-a-link
     """
 
-    api_url = f'https://api.rebrandly.com/v1/links/{link_id}'
-    payload = {"destination": destination, }
-    response = requests.post(api_url, json=payload, headers=headers)
-
-    if response.status_code == requests.codes.ok:
-        print(f"{link_id} updated successfully.")
-    else:
-        print(f"Error updating {link_id}.")
-        print(response.text)
-
-
-if __name__ == '__main__':
-    load_dotenv()
-    api_key = os.getenv('REBRANDLY_API')
-    headers = {
-        "apikey": api_key,
-        'Content-Type': 'application/json'
-    }
     new_coupons: dict = cp.get_coupon_dict()
-    udemy_links: dict = get_udemy_links()
+    udemy_links: dict = get_udemy_links(target_title)
 
     for rebrandly_link_id, udemy_course_id in udemy_links.items():
         new_coupon = new_coupons[udemy_course_id['course_id']]
         new_destination = f"{udemy_links[rebrandly_link_id]['course_link']}?couponCode={new_coupon}"
-        update_link(rebrandly_link_id, new_destination)
+
+        api_url = f'https://api.rebrandly.com/v1/links/{rebrandly_link_id}'
+        payload = {"destination": new_destination, }
+        response = requests.post(api_url, json=payload, headers=headers)
+
+        if response.status_code == requests.codes.ok:
+            print(f"{rebrandly_link_id} updated successfully.")
+        else:
+            print(f"Error updating {rebrandly_link_id}.")
+            print(response.text)
+
+
+if __name__ == '__main__':
+    update_redirect_links("UdemyMonth")
