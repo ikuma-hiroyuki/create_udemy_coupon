@@ -5,8 +5,8 @@ from pathlib import Path
 
 base_path = Path(__file__).resolve().parent
 origin_coupon_file = base_path / "udemy_coupon_code.csv"
-courses_file = base_path / "courses.csv"
-new_coupon_dir = base_path / "coupon_file"
+courses_file = base_path.parent / "courses.csv"
+new_coupon_dir = base_path.parent / "coupon_file"
 new_coupon_file = new_coupon_dir / "coupon_code.csv"
 
 
@@ -30,3 +30,7 @@ def get_coupon_dict():
         for row in reader:
             coupon_dict[row["course_id"]] = row["coupon_code"]
     return coupon_dict
+
+
+if __name__ == '__main__':
+    print(courses_file)
