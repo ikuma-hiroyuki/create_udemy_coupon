@@ -33,13 +33,19 @@ def get_udemy_links(target_title) -> dict:
     https://developers.rebrandly.com/docs/list-links
     """
 
+    def get_course_id(link):
+        return link['destination'].split('=')[-1].split('-')[0]
+
+    def get_course_url(link):
+        return link['destination'].split('?')[0]
+
     redirects = get_redirect_links()
 
     links = {
         link['id']: {
-            "course_id": link['destination'].split('=')[-1].split('-')[0],
+            "course_id": get_course_id(link),
             "slashtag": link['slashtag'],
-            "course_link": link['destination'].split('?')[0],
+            "course_link": get_course_url(link),
             "title": link['title'],
         }
         for link in redirects if target_title == link['title']
