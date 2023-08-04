@@ -1,11 +1,32 @@
 # 使い方
 
-1. main.pyを実行
-2. クーポン発行日は<code>2022/9/7 0:00(PST)</code>を基準に<code>基準 + 30日 * 発行回数</code>とする
-4. course_id + 発行回数(4桁ゼロ埋め)でクーポンコード発行
-5. 作られたcoupon_code.csvをアップロードする
-6. udemy各コースのボーナスレクチャーのクーポンURLを修正する
+## クーポンコードCSVの作成は以下の手順で行う
+1. コマンドラインで main.py を実行する
+2. コマンドライン引数として以下の引数がある
+   - -i カスタムプライスにするかどうか。指定しないとベストプライス。
+   - -d クーポン開始日 (省略で当日)
+   - -t クーポン開始時刻 (省略で現在時刻)
+3. クーポンコードCSVが作成される
 
-# Udemyクーポンコード一括作成について
+## リダイレクト先(rebrandly.com)のURLを更新するには以下の手順で行う
+1. コマンドラインで update_link.py を実行する
+2. コマンドライン引数として以下の引数がある
+   - -i カスタムプライスにするかどうか。指定しないとベストプライス。
+      - カスタムプライス用のURLとベストプライス用のURLの切替は、リダイレクトURLの title で行う
+3. リダイレクト先のURLが更新される
+
+カスタムプライス用URL切替は rebrandly api から返却される以下の書式のJSONで判定する
+```json
+{
+  "29120f87f5c84dd4b5b5122818d75e5c": {
+    "course_id": "5238110",
+    "slashtag": "python-basic-bestprice",
+    "course_link": "https://www.udemy.com/course/python-engineer-basic/",
+    "title": "UdemyBestPrice"
+  },
+}
+```
+
+## Udemyクーポンコード一括作成について
 
 https://www.udemy.com/instructor/multiple-coupons-creation/
