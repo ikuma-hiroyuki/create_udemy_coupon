@@ -64,4 +64,11 @@ if __name__ == '__main__':
     parser.add_argument("-i", "--is_custom_price", action="store_true", help="custom_priceのクーポンを作成するかどうか")
     args = parser.parse_args()
 
-    create_udemy_coupon(args.is_custom_price, args.start_date, args.start_time)
+    if args.is_custom_price:
+        price_type = "Custom price"
+    else:
+        price_type = "Best price"
+
+    is_create = input(f"{price_type} でクーポンを作成しますか？(y/n): ")
+    if is_create == "y":
+        create_udemy_coupon(args.is_custom_price, args.start_date, args.start_time)
