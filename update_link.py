@@ -48,12 +48,17 @@ def get_udemy_links(target_title) -> dict:
     return links
 
 
-def update_redirect_links(target_title):
+def update_redirect_links(is_custom_price: bool):
     """
     rebrandly のUdemyクーポンのリンクを更新する。
 
     https://developers.rebrandly.com/docs/update-a-link
     """
+
+    if is_custom_price:
+        target_title = "UdemyCustomPrice"
+    else:
+        target_title = "UdemyBestPrice"
 
     new_coupons: dict = cp.get_coupon_dict()
     udemy_links: dict = get_udemy_links(target_title)
@@ -69,20 +74,20 @@ def update_redirect_links(target_title):
         if response.status_code == requests.codes.ok:
             print(f"{udemy_links[rebrandly_link_id]['slashtag']} updated successfully.")
         else:
-            print(f"Error updating {rebrandly_link_id}.")
-            print(response.text)
+            print(f"Error updating {rebrandly_link_id}.\n{response.status_code} - {response.text}\n")
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser("リダイレクトリンク先のURLを更新する。位置引数として best か custom を指定する。")
-    parser.add_argument('price_type', type=str, help='best or custom')
-
+    parser = argparse.ArgumentParser("リダイレクトリンク先のURLを更新する。位置引数として best か custom を指定する。"
+                                     "それぞれのタイプで rebrandly の 該当する link title のリダイレクトリンクを更新する。")
+    parser.add_argument("-i", "--is_custom_price", action="store_true", help="custom_priceのクーポンを作成するかどうか")
     args = parser.parse_args()
 
-    target_title = ""
-    if args.price_type.lower() == "best":
-        target_title = "UdemyBestPrice"
-    elif args.price_type.lower() == "custom":
-        target_title = "UdemyCustomPrice"
+    if args.is_custom_price:
+        price_type = "Custom price"
+    else:
+        price_type = "Best price"
 
-    update_redirect_links(target_title)
+    is_create = input(f"{price_type} でクーポンを更新しますか？(y/n): ")
+    if is_create == "y":
+        update_redirect_links(args.is_custom_price)
