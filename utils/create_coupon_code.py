@@ -1,3 +1,9 @@
+"""
+https://www.udemy.com/instructor/multiple-coupons-creation/
+クーポンコードは6文字以上、20字以内でなければなりません。
+使用できる文字と記号は、英数字（A-Z、0-9）、ピリオド（「.」）、ダッシュ（「-」）、アンダースコア（「_」）のみです。
+"""
+
 import datetime as dt
 import hashlib
 import uuid
@@ -43,5 +49,5 @@ def create_unique_id(course_id: str):
 
     uuid_value = uuid.uuid4()
     hash_value = hashlib.sha256(uuid_value.bytes).hexdigest()
-    unique_code = hash_value[:12]
+    unique_code = hash_value[:12].upper()
     return f"{course_id}-{unique_code}"[:20]
