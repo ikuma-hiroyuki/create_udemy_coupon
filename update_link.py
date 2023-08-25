@@ -86,14 +86,14 @@ def update_redirect_links(is_custom_price: bool):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser("リダイレクトリンク先のURLを更新する。位置引数として best か custom を指定する。"
                                      "それぞれのタイプで rebrandly の 該当する link title のリダイレクトリンクを更新する。")
-    parser.add_argument("-i", "--is_custom_price", action="store_true", help="custom_priceのクーポンを作成するかどうか")
+    parser.add_argument("-b", "--is_best_price", action="store_true", help="best_priceのクーポンを作成するかどうか")
     args = parser.parse_args()
 
-    if args.is_custom_price:
-        price_type = "Custom price"
-    else:
+    if args.is_best_price:
         price_type = "Best price"
+    else:
+        price_type = "Custom price"
 
     is_create = input(f"{price_type} でクーポンを更新しますか？(y/n): ")
-    if is_create == "y":
+    if is_create.lower() == "y":
         update_redirect_links(args.is_custom_price)
