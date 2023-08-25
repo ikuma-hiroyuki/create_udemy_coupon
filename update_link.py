@@ -54,17 +54,17 @@ def get_udemy_links(target_title) -> dict:
     return links
 
 
-def update_redirect_links(is_custom_price: bool):
+def update_redirect_links(is_best_price: bool):
     """
     rebrandly のUdemyクーポンのリンクを更新する。
 
     https://developers.rebrandly.com/docs/update-a-link
     """
 
-    if is_custom_price:
-        target_title = "UdemyCustomPrice"
-    else:
+    if is_best_price:
         target_title = "UdemyBestPrice"
+    else:
+        target_title = "UdemyCustomPrice"
 
     new_coupons: dict = cp.get_coupon_dict()
     udemy_links: dict = get_udemy_links(target_title)
@@ -96,4 +96,4 @@ if __name__ == '__main__':
 
     is_create = input(f"{price_type} でクーポンを更新しますか？(y/n): ")
     if is_create.lower() == "y":
-        update_redirect_links(args.is_custom_price)
+        update_redirect_links(args.is_best_price)
