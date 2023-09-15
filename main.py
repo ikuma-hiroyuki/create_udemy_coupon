@@ -2,11 +2,20 @@
 Udemyのクーポン一括作成機能用のクーポンを作成する
 https://www.udemy.com/instructor/multiple-coupons-creation/
 """
+
 import argparse
 import csv
 import datetime
 
 from utils import coupon_pathlib as cp, create_increment_code, create_unique_id, convert_jst_to_pst
+
+
+def add_arguments():
+    parser = argparse.ArgumentParser("Udemyのクーポン一括作成機能用のクーポンを作成する")
+    parser.add_argument("-c", "--is_custom_price", action="store_true", help="custom_priceのクーポンを作成するかどうか")
+    parser.add_argument('-d', '--start_date', type=str, help='YYYY-MM-DD (省略すると当日)')
+    parser.add_argument('-t', '--start_time', type=str, help='HH:MM (省略すると現在時刻)')
+    return parser.parse_args()
 
 
 def create_udemy_coupon(is_custom_price: bool, start_date: str, start_time: str):
@@ -59,11 +68,7 @@ def create_udemy_coupon(is_custom_price: bool, start_date: str, start_time: str)
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser("Udemyのクーポン一括作成機能用のクーポンを作成する")
-    parser.add_argument("-c", "--is_custom_price", action="store_true", help="custom_priceのクーポンを作成するかどうか")
-    parser.add_argument('-d', '--start_date', type=str, help='YYYY-MM-DD (省略すると当日)')
-    parser.add_argument('-t', '--start_time', type=str, help='HH:MM (省略すると現在時刻)')
-    args = parser.parse_args()
+    args = add_arguments()
 
     if args.is_custom_price:
         price_type = "Custom price"
