@@ -50,4 +50,5 @@ def create_unique_id(course_id: str):
     uuid_value = uuid.uuid4()
     hash_value = hashlib.sha256(uuid_value.bytes).hexdigest()
     unique_code = hash_value[:12].upper()
-    return f"{course_id}-{unique_code}"[:20]
+    coupon_code = f"{course_id}-{unique_code}"[:20]
+    return coupon_code
