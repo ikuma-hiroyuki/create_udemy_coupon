@@ -30,6 +30,7 @@ def update_promotion_link():
     pyperclip.copy(mail)
     print(mail)
     print("\nメールテンプレートを更新し、クリップボードにコピーしました。")
+    print("VSCodeでMarkDownファイルを作成、貼り付けてプレビューをコピペして利用してください。")
 
 
 if __name__ == "__main__":
