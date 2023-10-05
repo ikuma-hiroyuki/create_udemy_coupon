@@ -7,7 +7,13 @@ import argparse
 import csv
 import datetime
 
-from utils import coupon_pathlib as cp, create_increment_code, create_unique_id, convert_jst_to_pst
+from utils import (
+    coupon_pathlib as cp,
+    create_increment_code,
+    create_unique_id,
+    convert_jst_to_pst,
+    update_promotion_link
+)
 
 
 def add_arguments():
@@ -83,3 +89,4 @@ if __name__ == '__main__':
     is_create = input(f"{price_type} でクーポンを作成しますか？(y/n): ")
     if is_create == "y":
         create_udemy_coupon(args.is_custom_price, args.start_date, args.start_time)
+        update_promotion_link()
