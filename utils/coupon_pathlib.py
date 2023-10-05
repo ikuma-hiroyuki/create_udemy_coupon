@@ -4,8 +4,10 @@ import subprocess
 from pathlib import Path
 
 base_path = Path(__file__).resolve().parent
+resources_dir = Path(__file__).resolve().parent.parent / "resources"
+
 origin_coupon_file = base_path / "udemy_coupon_code.csv"
-courses_file = base_path.parent / "courses.csv"
+courses_file = resources_dir / "courses.csv"
 new_coupon_dir = base_path.parent / "coupon_file"
 new_coupon_file = new_coupon_dir / "coupon_code.csv"
 
