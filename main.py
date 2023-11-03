@@ -7,6 +7,7 @@ import argparse
 import csv
 import datetime
 
+from update_link import update_redirect_links
 from utils import (
     coupon_pathlib as cp,
     create_increment_code,
@@ -90,3 +91,6 @@ if __name__ == '__main__':
     if is_create == "y":
         create_udemy_coupon(args.is_custom_price, args.start_date, args.start_time)
         update_promotion_link()
+
+        if args.is_custom_price:
+            update_redirect_links(is_best_price=False)
