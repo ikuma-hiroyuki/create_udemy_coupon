@@ -2,8 +2,8 @@
 ■{5238110-name}
 [1200円クーポンで購入する ＞＞＞](https://www.udemy.com/course/python-engineer-basic/?couponCode={5238110-code})<br>
 
-{5348024-name}
-■[1200円クーポンで購入する ＞＞＞](https://www.udemy.com/course/python-gpt-excel/?couponCode={5348024-code})<br>
+■{5348024-name}
+[1200円クーポンで購入する ＞＞＞](https://www.udemy.com/course/python-gpt-excel/?couponCode={5348024-code})<br>
 <br>
 
 ⭐VBAは事務職最強の改善ツール
