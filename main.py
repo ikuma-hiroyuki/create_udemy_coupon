@@ -20,8 +20,8 @@ from utils import (
 def add_arguments():
     parser = argparse.ArgumentParser("Udemyのクーポン一括作成機能用のクーポンを作成する")
     parser.add_argument("-c", "--is_custom_price", action="store_true", help="custom_priceのクーポンを作成するかどうか")
-    parser.add_argument('-d', '--start_date', type=str, help='YYYY-MM-DD (省略すると当日)')
-    parser.add_argument('-t', '--start_time', type=str, help='HH:MM (省略すると現在時刻)')
+    parser.add_argument('-d', '--start_date', type=str, help='YYYY-MM-DD (日本時間。省略すると当日)')
+    parser.add_argument('-t', '--start_time', type=str, help='HH:MM (日本時間。省略すると現在時刻)')
     return parser.parse_args()
 
 
@@ -93,4 +93,6 @@ if __name__ == '__main__':
         update_promotion_link()
 
         if args.is_custom_price:
-            update_redirect_links(is_best_price=False)
+            is_update = input("リダイレクトリンク先のURLを更新しますか？(y/n): ")
+            if is_update == "y":
+                update_redirect_links(is_best_price=False)
