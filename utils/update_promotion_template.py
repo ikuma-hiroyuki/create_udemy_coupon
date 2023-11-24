@@ -4,7 +4,7 @@ from pathlib import Path
 import pyperclip
 
 
-def update_promotion_link():
+def update_promotion_template_and_copy_to_clipboard():
     """
     プロモーション用のメールテンプレートを更新し、クリップボードにコピーする
     """
@@ -34,4 +34,4 @@ def update_promotion_link():
 
 
 if __name__ == "__main__":
-    update_promotion_link()
+    update_promotion_template_and_copy_to_clipboard()

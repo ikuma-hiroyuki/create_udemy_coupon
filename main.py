@@ -13,7 +13,7 @@ from utils import (
     create_increment_code,
     create_unique_id,
     convert_jst_to_pst,
-    update_promotion_link
+    update_promotion_template_and_copy_to_clipboard
 )
 
 
@@ -90,7 +90,8 @@ if __name__ == '__main__':
     is_create = input(f"{price_type} でクーポンを作成しますか？(y/n): ")
     if is_create == "y":
         create_udemy_coupon(args.is_custom_price, args.start_date, args.start_time)
-        update_promotion_link()
+        if not args.is_custom_price:
+            update_promotion_template_and_copy_to_clipboard()
 
         if args.is_custom_price:
             is_update = input("リダイレクトリンク先のURLを更新しますか？(y/n): ")
