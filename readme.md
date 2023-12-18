@@ -53,6 +53,14 @@
 }
 ```
 
+## rebrandly.comに新規URLを追加する手順
+
+1. わかりやすい名前を付ける (slashtag)
+2. `just a moment` の部分を `UdemyCustomPrice` に変える (title)
+3. URLの`couponCode=???????`の`?`のコースIDを合わせる
+
+
+
 ## Udemyクーポンコード一括作成について
 
 https://www.udemy.com/instructor/multiple-coupons-creation/
