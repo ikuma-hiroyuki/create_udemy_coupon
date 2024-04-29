@@ -14,14 +14,16 @@ headers = {
 }
 
 
-def get_redirect_links() -> list:
+def get_redirect_links() -> list[dict]:
     """
     rebrandly に登録してあるリダイレクトリンクを取得する。
     :return: リダイレクトリンク一覧
     """
     api_url = 'https://api.rebrandly.com/v1/links'
-    response = requests.get(api_url, headers=headers)
-    return response.json()
+    response = requests.get(api_url, headers=headers).json()
+    custom_price_count = len([link for link in response if link['title'] == 'UdemyCustomPrice'])
+    print(f"UdemyCustomPrice のリンク数: {custom_price_count}")
+    return response
 
 
 def get_udemy_links(target_title) -> dict:
@@ -69,6 +71,7 @@ def update_redirect_links(is_best_price: bool):
     new_coupons: dict = cp.get_coupon_dict()
     udemy_links: dict = get_udemy_links(target_title)
 
+    success_count = 0
     for rebrandly_link_id, udemy_course_id in udemy_links.items():
         new_coupon = new_coupons[udemy_course_id['course_id']]
         new_destination = f"{udemy_links[rebrandly_link_id]['course_link']}?couponCode={new_coupon}"
@@ -79,8 +82,11 @@ def update_redirect_links(is_best_price: bool):
 
         if response.status_code == requests.codes.ok:
             print(f"{udemy_links[rebrandly_link_id]['slashtag']} updated successfully.")
+            success_count += 1
         else:
             print(f"Error updating {rebrandly_link_id}.\n{response.status_code} - {response.text}\n")
+    else:
+        print(f"\nUpdated {success_count} links.")
 
 
 if __name__ == '__main__':
