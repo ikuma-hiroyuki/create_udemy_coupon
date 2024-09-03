@@ -97,3 +97,9 @@ if __name__ == '__main__':
             is_update = input("リダイレクトリンク先のURLを更新しますか？(y/n): ")
             if is_update == "y":
                 update_redirect_links(is_best_price=False)
+
+    # args.start_date + args.start_time の30日後の日付と時刻を表示する
+    if args.is_custom_price:
+        start_date_time = datetime.datetime.strptime(f"{args.start_date} {args.start_time}", "%Y-%m-%d %H:%M")
+        end_date_time = start_date_time + datetime.timedelta(days=30)
+        print(f"クーポンの有効期限は {end_date_time} です。")
