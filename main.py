@@ -6,6 +6,7 @@ https://www.udemy.com/instructor/multiple-coupons-creation/
 import argparse
 import csv
 import datetime
+import os
 
 from update_link import update_redirect_links
 from utils import (
@@ -47,6 +48,7 @@ def create_udemy_coupon(is_custom_price: bool, start_date: str, start_time: str)
         coupon_func = create_unique_id
 
     # 対象になるコースに対して、クーポンコードを作成する
+    os.makedirs(cp.new_coupon_file.parent, exist_ok=True)
     with cp.courses_file.open("r", encoding="utf-8") as f:
         reader: csv.DictReader = csv.DictReader(f)
 
