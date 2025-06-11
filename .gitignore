@@ -162,3 +162,6 @@ cython_debug/
 
 coupon_file/coupon_code.csv
 .env
+
+.DS_Store
+redirect.csv

@@ -1,14 +1,12 @@
-"""
-Udemyのクーポン一括作成機能用のクーポンを作成する
-https://www.udemy.com/instructor/multiple-coupons-creation/
-"""
+"""Udemyのクーポン一括作成機能用のクーポンを作成する"""
 
 import argparse
 import csv
 import datetime
 import os
 
-from update_link import update_redirect_links
+from dotenv import load_dotenv
+
 from utils import (
     coupon_pathlib as cp,
     create_increment_code,
@@ -16,6 +14,11 @@ from utils import (
     convert_jst_to_pst,
     update_promotion_template_and_copy_to_clipboard
 )
+from utils.create_wp_csv import create_wp_csv
+
+load_dotenv()
+
+domain = os.getenv("DOMAIN")
 
 
 def add_arguments():
@@ -96,9 +99,8 @@ if __name__ == '__main__':
             update_promotion_template_and_copy_to_clipboard()
 
         if args.is_custom_price:
-            is_update = input("リダイレクトリンク先のURLを更新しますか？(y/n): ")
-            if is_update == "y":
-                update_redirect_links(is_best_price=False)
+            print("Wordpressでリダイレクト先更新用のCSVを作成します。")
+            create_wp_csv()
 
     # args.start_date + args.start_time の30日後の日付と時刻を表示する
     if args.is_custom_price:
