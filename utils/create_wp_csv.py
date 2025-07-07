@@ -6,7 +6,7 @@ import re
 
 from dotenv import load_dotenv
 
-import coupon_pathlib as cp
+from . import coupon_pathlib as cp
 
 load_dotenv()
 
