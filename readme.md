@@ -31,8 +31,11 @@
 ```
 ※ {}と[]()以外の文字列はそのまま出力される
 
+## リダイレクト先の更新
+1. wordpressのRedirectionプラグインを用い
+2. `resources/courses.csv`の内容を更新・アップロードする
 
-## リダイレクト先(rebrandly.com)のURLを更新するには以下の手順で行う
+## リダイレクト先(rebrandly.com)のURLを更新するには以下の手順で行う (rebrandlyのリダイレクト先数制限により停止中)
 
 1. コマンドラインで update_link.py を実行する
 2. コマンドライン引数として以下の引数がある
