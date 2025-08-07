@@ -107,3 +107,4 @@ if __name__ == '__main__':
         start_date_time = datetime.datetime.strptime(f"{args.start_date} {args.start_time}", "%Y-%m-%d %H:%M")
         end_date_time = start_date_time + datetime.timedelta(days=30)
         print(f"クーポンの有効期限は {end_date_time} です。")
+        print("以前のリダイレクト設定は無効か削除にしてください。")
