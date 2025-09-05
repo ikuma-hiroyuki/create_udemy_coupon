@@ -35,6 +35,13 @@
 1. wordpressのRedirectionプラグインを用い
 2. `resources/courses.csv`の内容を更新・アップロードする
 
+## 新規コース追加時の処理
+
+1. Udemyからコースデータを[DL](https://www.udemy.com/instructor/multiple-coupons-creation/)
+2. `resources/courses.csv`にコースデータを追加
+3. `coupon_file/redirect.csv`にリダイレクト先のURLを追加(UdemyのURLはUdemyを開いてコピー)
+4. `resources/mail_template.txt`にプロモーションメール用のテキストを追加
+
 ## リダイレクト先(rebrandly.com)のURLを更新するには以下の手順で行う (rebrandlyのリダイレクト先数制限により停止中)
 
 1. コマンドラインで update_link.py を実行する
@@ -56,7 +63,7 @@
 }
 ```
 
-## rebrandly.comに新規URLを追加する手順
+### rebrandly.comに新規URLを追加する手順
 
 1. わかりやすい名前を付ける (slashtag)
 2. `just a moment` の部分を `UdemyCustomPrice` に変える (title)

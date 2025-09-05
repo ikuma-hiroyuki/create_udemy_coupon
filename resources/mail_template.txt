@@ -1,3 +1,11 @@
+AI・バイブコーディング
+■【無料】速習 ゼロから始めるバイブコーディング超入門。プログラミング未経験でもAIと会話しながらWebブラウザアプリ開発
+[無料](https://www.udemy.com/course/start-cursor/?referralCode=3CCAA81F68FAC3973D8E)<br>
+
+■{6610159-name}
+[最安値クーポンで購入する ＞＞＞](https://www.udemy.com/course/practice-cursor/?couponCode={6610159-code})<br>
+
+
 🐍Pythonエンジニアになる
 ■{5238110-name}
 [最安値クーポンで購入する ＞＞＞](https://www.udemy.com/course/python-engineer-basic/?couponCode={5238110-code})<br>
@@ -46,6 +54,10 @@
 ■{6136269-name}
 [最安値クーポンで購入する ＞＞＞](https://www.udemy.com/course/excel-for-beginner/?couponCode={6136269-code})<br>
 <br>
+
+■{6204509-name}
+[最安値クーポンで購入する ＞＞＞](https://www.udemy.com/course/excel-functions-basic/?couponCode={6204509-code})<br>
+
 
 💻非エンジニアでもらくらくノーコード開発
 ■{4008910-name}
