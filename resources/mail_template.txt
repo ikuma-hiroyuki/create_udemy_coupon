@@ -1,8 +1,8 @@
-■【NotebookLMを１時間で使い始めるためのスタートアップガイド】
-[最安値クーポンで購入する ＞＞＞](https://www.udemy.com/course/practice-cursor/?couponCode={7072793-code})<br>
+■{7072793-name}
+[最安値クーポンで購入する ＞＞＞](https://www.udemy.com/course/notebooklm1/?couponCode={7072793-code})<br>
 
-■【『AI時代のリベラルアーツ』学校では絶対に、AIもなかなか教えてくれない「情報空間の地政学」とメディアリテラシーの教科書
-[最安値クーポンで購入する ＞＞＞](https://www.udemy.com/course/practice-cursor/?couponCode={7064701-code})<br>
+■{7064701-name}
+[最安値クーポンで購入する ＞＞＞](https://www.udemy.com/course/ikuma-liberalarts-01/?couponCode={7064701-code})<br>
 
 
 AI・バイブコーディング
@@ -11,6 +11,10 @@ AI・バイブコーディング
 
 ■{6610159-name}
 [最安値クーポンで購入する ＞＞＞](https://www.udemy.com/course/practice-cursor/?couponCode={6610159-code})<br>
+
+ 思考の速度でMacを操る
+■{7079445-name}
+[最安値クーポンで購入する ＞＞＞](https://www.udemy.com/course/raycast-pioneer/?couponCode={7079445-code})<br>
 
 
 🐍Pythonエンジニアになる
