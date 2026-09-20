@@ -50,7 +50,7 @@ def create_wp_csv():
                 udemy_url = course_url_mapping[course_id]
                 url = f"{udemy_url}?couponCode={coupon_code}"
 
-                writer.writerow([source, url, "url", "redirect"])
+                writer.writerow([source, url])
 
     upload_url = "wp-admin/tools.php?page=redirection.php&sub=io"
     print(
